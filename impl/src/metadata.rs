@@ -376,7 +376,13 @@ impl RazeMetadataFetcher {
     // Parse the current `workspace` section of the manifest if one exists
     let mut workspace = match manifest.workspace {
       Some(workspace) => workspace,
-      None => cargo_toml::Workspace::default(),
+      None => cargo_toml::Workspace {
+        members: vec![],
+        default_members: vec![],
+        exclude: vec![],
+        metadata: Option::None,
+        resolver: Option::None,
+      },
     };
 
     // Add the binary dependencies as workspace members to the `workspace` metadata
